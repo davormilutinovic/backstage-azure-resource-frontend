@@ -38,8 +38,9 @@ export const GetEntityAzureSecurityRecommendations = () => {
     const identityApi = useApi(identityApiRef);
 
     const { value, loading, error } = useAsync(async (): Promise<SecurityRec[]> => {
-        // @ts-ignore
-        const token = await identityApi.getIdToken(); 
+
+        // const token = await identityApi.getIdToken(); 
+        const token = (await identityApi.getCredentials()).token;
         
         const response = await fetch(`${backendUrl}/api/azure-resources/rg/${tagKey}/${tagValue}/secrecommendations`, {
             method: 'GET',

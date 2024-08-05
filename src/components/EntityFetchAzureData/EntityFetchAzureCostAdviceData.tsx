@@ -35,8 +35,8 @@ export const GetEntityAzureCostAdvice = () => {
 
     const { value, loading, error } = useAsync(async (): Promise<CostAdvice[]> => {
         
-        // @ts-ignore
-        const token = await identityApi.getIdToken(); 
+        // const token = await identityApi.getIdToken(); 
+        const token = (await identityApi.getCredentials()).token;
 
         const response = await fetch(`${backendUrl}/api/azure-resources/rg/${tagKey}/${tagValue}/costadvice`, {
             method: 'GET',

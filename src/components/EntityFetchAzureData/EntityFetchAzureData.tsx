@@ -94,8 +94,9 @@ export const GetEntityAzureResourceGroups = () => {
   const backendUrl = config.getString('backend.baseUrl');
   const identityApi = useApi(identityApiRef);
   const { value, loading, error } = useAsync(async (): Promise<EntityResourceGroups[]> => {
-    // @ts-ignore
-    const token = await identityApi.getIdToken(); 
+    
+    // const token = await identityApi.getIdToken(); 
+    const token = (await identityApi.getCredentials()).token;
     
     const response = await fetch(`${backendUrl}/api/azure-resources/rg/${tagKey}/${tagValue}`, {
       method: 'GET',
