@@ -25,6 +25,8 @@ import { Chip, Box } from '@material-ui/core';
 import FolderOpenIcon from '@material-ui/icons/FolderOpenOutlined';
 import { AZURE_ANNOTATION_TAG_SELECTOR } from '../entityData';
 
+import { identityApiRef } from '@backstage/core-plugin-api';
+
 type EntityResourceGroups = {
     id?: string;
     tenantId?: string;
@@ -90,8 +92,18 @@ export const GetEntityAzureResourceGroups = () => {
   
   const config = useApi(configApiRef);
   const backendUrl = config.getString('backend.baseUrl');
+  const identityApi = useApi(identityApiRef);
   const { value, loading, error } = useAsync(async (): Promise<EntityResourceGroups[]> => {
-      const response = await fetch(`${backendUrl}/api/azure-resources/rg/${tagKey}/${tagValue}`);
+    // @ts-ignore
+    const token = await identityApi.getIdToken(); 
+    
+    const response = await fetch(`${backendUrl}/api/azure-resources/rg/${tagKey}/${tagValue}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
       const json = await response.json();
       return json.data;
   }, []);

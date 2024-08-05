@@ -1,5 +1,5 @@
 {
-  "name": "@vippsno/plugin-azure-resources",
+  "name": "@davormilutinovic/plugin-azure-resources",
   "description": "A backstage plugin for showing Azure resoources",
   "homepage": "https://github.com/vippsas/backstage-azure-resource-frontend",
   "bugs": {
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@backstage/core-components": "^0.11.0",
-    "@backstage/core-plugin-api": "^1.0.5",
+    "@backstage/core-plugin-api": "^1.9.2",
     "@backstage/theme": "^0.2.16",
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",

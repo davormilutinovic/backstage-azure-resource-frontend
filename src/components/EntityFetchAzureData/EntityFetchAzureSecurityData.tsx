@@ -7,6 +7,8 @@ import { Box, Chip } from '@material-ui/core';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { AZURE_ANNOTATION_TAG_SELECTOR } from '../entityData';
 
+import { identityApiRef } from '@backstage/core-plugin-api';
+
 type SecurityRec = {
     link: string;
     resourceId: any;
@@ -33,8 +35,19 @@ export const GetEntityAzureSecurityRecommendations = () => {
     
     const config = useApi(configApiRef);
     const backendUrl = config.getString('backend.baseUrl');
+    const identityApi = useApi(identityApiRef);
+
     const { value, loading, error } = useAsync(async (): Promise<SecurityRec[]> => {
-        const response = await fetch(`${backendUrl}/api/azure-resources/rg/${tagKey}/${tagValue}/secrecommendations`);
+        // @ts-ignore
+        const token = await identityApi.getIdToken(); 
+        
+        const response = await fetch(`${backendUrl}/api/azure-resources/rg/${tagKey}/${tagValue}/secrecommendations`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
         const json = await response.json();
         return json.data;
     }, []);
