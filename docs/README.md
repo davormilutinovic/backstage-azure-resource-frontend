@@ -2,7 +2,7 @@
 
 This plugin shows information about Azure resources related to your backstage entity
 
-`` I have updated original repo and is working witn backstage new backend version ``
+`` I have updated original repo and it is working now with backstage new backend version ``
 check [here](https://github.com/davormilutinovic/backstage-azure-resources-backend)
 
 
