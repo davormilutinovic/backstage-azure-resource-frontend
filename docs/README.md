@@ -2,6 +2,10 @@
 
 This plugin shows information about Azure resources related to your backstage entity
 
+`` I have updated original repo and is working witn backstage new backend version ``
+check [here](https://github.com/davormilutinovic/backstage-azure-resources-backend)
+
+
 ![backstage azure entity view](./img/entity-view.png)
 
 ## Getting started
